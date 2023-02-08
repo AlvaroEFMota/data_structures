@@ -12,7 +12,10 @@ pub fn looplist() {
     let b = Rc::new(RefCell::new(List{ item: 2, next: None } ));
     let c = Rc::new(RefCell::new(List{ item: 3, next: None } ));
 
+    c.borrow_mut().item = 7;
+
     {
+        // let mut a1 = a.borrow_mut();
         let mut a1 = a.borrow_mut();
         a1.next = Some(Rc::clone(&b));
     }

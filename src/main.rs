@@ -9,7 +9,7 @@ fn main() {
     println!("{:?}", list);
 
     // Infinite loop
-    // looplist();
+    looplist();
 
 
 }
