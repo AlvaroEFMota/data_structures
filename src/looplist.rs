@@ -6,23 +6,24 @@ struct List {
     next: Option<Rc<RefCell<List>>>,
 }
 
-pub fn LoopList() {
+#[allow(dead_code)]
+pub fn looplist() {
     let a = Rc::new(RefCell::new(List{ item: 1, next: None } ));
     let b = Rc::new(RefCell::new(List{ item: 2, next: None } ));
     let c = Rc::new(RefCell::new(List{ item: 3, next: None } ));
 
     {
-        let mut a1 = a.as_ref().borrow_mut();
+        let mut a1 = a.borrow_mut();
         a1.next = Some(Rc::clone(&b));
     }
 
     {
-        let mut b1 = b.as_ref().borrow_mut();
+        let mut b1 = b.borrow_mut();
         b1.next = Some(Rc::clone(&c));
     }
 
     {
-        let mut c1 = c.as_ref().borrow_mut();
+        let mut c1 = c.borrow_mut();
         c1.next = Some(Rc::clone(&a));
     }
 
@@ -30,7 +31,7 @@ pub fn LoopList() {
         let mut node = a.clone();
         loop {
             let a = Rc::clone(&node);
-            let a_ref = a.as_ref().borrow();
+            let a_ref = a.borrow();
             print!("{} ", a_ref.item);
             if let Some(_) = &a_ref.next {
                 node = a_ref.next.clone().unwrap();

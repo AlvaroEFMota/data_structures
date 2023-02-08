@@ -1,5 +1,5 @@
 use data_structures::linkedlist::LinkedList;
-use data_structures::looplist::LoopList;
+use data_structures::looplist::looplist;
 fn main() {
     let mut list = LinkedList::new();
     list.push_front(4);
@@ -9,7 +9,7 @@ fn main() {
     println!("{:?}", list);
 
     // Infinite loop
-    // LoopList();
+    // looplist();
 
 
 }
