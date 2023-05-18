@@ -1,9 +1,9 @@
 use std::{rc::Rc, cell::RefCell};
 
 #[derive(Debug)]
-struct List {
-    item: i32,
-    next: Option<Rc<RefCell<List>>>,
+pub struct List {
+    pub item: i32,
+    pub next: Option<Rc<RefCell<List>>>,
 }
 
 #[allow(dead_code)]
@@ -30,6 +30,9 @@ pub fn looplist() {
         c1.next = Some(Rc::clone(&a));
     }
 
+    // Uncomment the line below to see a stack overflow
+    //looplist_recursive_stackoverflow(&Some(a.clone())); 
+
     { // Infinite loop   
         let mut node = a.clone();
         loop {
@@ -47,4 +50,13 @@ pub fn looplist() {
     // fatal runtime error: stack overflow
     println!("{:?}", a);
 
+}
+
+pub fn looplist_recursive_stackoverflow(node_option:  &Option<Rc<RefCell<List>>>) {
+    if let Some(_) = node_option {
+        let x = node_option.clone().unwrap();
+        let y = x.borrow();
+        print!("{} ", y.item);
+        looplist_recursive_stackoverflow(&y.next);
+    }
 }
