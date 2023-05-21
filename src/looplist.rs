@@ -31,7 +31,7 @@ pub fn looplist() {
     }
 
     // Uncomment the line below to see a stack overflow
-    //looplist_recursive_stackoverflow(&Some(a.clone())); 
+    // looplist_recursive_stackoverflow(&Some(a.clone()), 1); 
 
     { // Infinite loop   
         let mut node = a.clone();
@@ -52,11 +52,11 @@ pub fn looplist() {
 
 }
 
-pub fn looplist_recursive_stackoverflow(node_option:  &Option<Rc<RefCell<List>>>) {
+pub fn looplist_recursive_stackoverflow(node_option:  &Option<Rc<RefCell<List>>>, count: i64) {
     if let Some(_) = node_option {
         let x = node_option.clone().unwrap();
         let y = x.borrow();
-        print!("{} ", y.item);
-        looplist_recursive_stackoverflow(&y.next);
+        println!("{}, call {}", y.item, count);
+        looplist_recursive_stackoverflow(&y.next, count + 1);
     }
 }
